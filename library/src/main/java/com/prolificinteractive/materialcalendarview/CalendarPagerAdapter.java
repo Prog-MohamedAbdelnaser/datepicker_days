@@ -169,6 +169,7 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
     return pagerView;
   }
 
+
   public void setShowWeekDays(boolean showWeekDays) {
     this.showWeekDays = showWeekDays;
   }
@@ -293,6 +294,15 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
     invalidateSelectedDates();
   }
 
+  public void setSelectedDates(List<CalendarDay> selectedDatesM) {
+    clearSelections();
+    selectedDates.addAll(selectedDatesM);
+
+    invalidateSelectedDates();
+
+    }
+
+
   /**
    * Select or un-select a day.
    *
@@ -300,6 +310,7 @@ abstract class CalendarPagerAdapter<V extends CalendarPagerView> extends PagerAd
    * @param selected Whether to select or un-select the day from the list.
    * @see CalendarPagerAdapter#selectRange(CalendarDay, CalendarDay)
    */
+
   public void setDateSelected(CalendarDay day, boolean selected) {
     if (selected) {
 

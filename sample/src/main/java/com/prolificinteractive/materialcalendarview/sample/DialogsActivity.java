@@ -16,10 +16,14 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.util.ArrayList;
+
 /**
  * Shows off the most basic usage
  */
 public class DialogsActivity extends AppCompatActivity {
+
+  ArrayList<CalendarDay> calendarDays =new ArrayList<CalendarDay>();
 
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("EEE, d MMM yyyy");
 
@@ -37,7 +41,21 @@ public class DialogsActivity extends AppCompatActivity {
 
   @OnClick(R.id.button_simple_dialog)
   void onSimpleCalendarDialogClick() {
-    new SimpleCalendarDialogFragment().show(getSupportFragmentManager(), "test-simple-calendar");
+    Dialog dialog =new Dialog(this);
+    dialog.setContentView(R.layout.dialog_basic);
+
+    MaterialCalendarView calendarView = dialog.findViewById(R.id.calendarView);
+    calendarView.setSelectedDates(calendarDays);
+
+    calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+      @Override
+      public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+        if (selected) calendarDays.add(date);
+        else calendarDays.remove(date);
+      }
+    });
+    dialog.show();
+   // new SimpleCalendarDialogFragment().show(getSupportFragmentManager(), "test-simple-calendar");
   }
 
   public static class SimpleDialogFragment extends AppCompatDialogFragment {
@@ -57,6 +75,8 @@ public class DialogsActivity extends AppCompatActivity {
       implements OnDateSelectedListener {
 
     private TextView textView;
+
+
 
     @NonNull
     @Override

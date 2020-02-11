@@ -826,6 +826,11 @@ public class MaterialCalendarView extends ViewGroup {
     }
   }
 
+  public void setSelectedDates(@Nullable List<CalendarDay> selectedDates) {
+    if (selectedDates != null && selectedDates.size() > 0) {
+      adapter.setSelectedDates(selectedDates);
+    }
+  }
   /**
    * @param day a CalendarDay to change. Passing null does nothing
    * @param selected true if day should be selected, false to deselect
@@ -836,6 +841,7 @@ public class MaterialCalendarView extends ViewGroup {
     }
     adapter.setDateSelected(day, selected);
   }
+
 
   /**
    * Get the current first day of the month in month mode, or the first visible day of the

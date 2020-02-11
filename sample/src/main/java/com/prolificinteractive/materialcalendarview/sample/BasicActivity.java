@@ -3,6 +3,7 @@ package com.prolificinteractive.materialcalendarview.sample;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -13,6 +14,9 @@ import com.prolificinteractive.materialcalendarview.OnDateLongClickListener;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 import org.threeten.bp.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Shows off the most basic usage
@@ -37,7 +41,6 @@ public class BasicActivity extends AppCompatActivity
     widget.setOnDateChangedListener(this);
     widget.setOnDateLongClickListener(this);
     widget.setOnMonthChangedListener(this);
-
     //Setup initial text
     textView.setText("No Selection");
   }
@@ -47,12 +50,14 @@ public class BasicActivity extends AppCompatActivity
       @NonNull MaterialCalendarView widget,
       @NonNull CalendarDay date,
       boolean selected) {
+    Log.i("onDateSelected",""+date);
     textView.setText(selected ? FORMATTER.format(date.getDate()) : "No Selection");
   }
 
   @Override
   public void onDateLongClick(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date) {
     final String text = String.format("%s is available", FORMATTER.format(date.getDate()));
+
     Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
   }
 
